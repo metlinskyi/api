@@ -1,4 +1,4 @@
-## 
+## API
 
 For prevent multiple requests to external source I use ConcurrentDictionary and because it just a proof of concept the dictionary using like a cache.
 
