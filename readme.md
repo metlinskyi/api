@@ -14,6 +14,10 @@ The best way to find code design solution for me is implement abstractions and i
 In the process I can dive deeply to the problem, think how they will be work together.
 
 
+```
+dotnet sln add tests/tests.csproj
+
+```
 
 
 &nbsp;
