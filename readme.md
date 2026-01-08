@@ -14,6 +14,8 @@ The best way to find code design solution for me is implement abstractions and i
 In the process I can dive deeply to the problem, think how they will be work together.
 
 
+
+
 &nbsp;
 ============
-&copy; [The Best Software Engineer In The Universe!](https://www.linkedin.com/in/metlinskyi/)
+&copy; [The Best Software Engineer in The Universe!](https://www.linkedin.com/in/metlinskyi/)
