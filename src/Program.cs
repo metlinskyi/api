@@ -1,6 +1,6 @@
-var builder = WebApplication.CreateSlimBuilder(args);
-var app = builder.Build();
+var bld = WebApplication.CreateBuilder();
+bld.Services.AddFastEndpoints();
 
-var api = app.MapGroup("/api");
-api.MapGet("/", () => "Hello, World!");
+var app = bld.Build();
+app.UseFastEndpoints();
 app.Run();
