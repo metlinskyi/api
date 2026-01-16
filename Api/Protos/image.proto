@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "Api";
+
+package image;
+
+service Image {
+  rpc Image (ImageRequest) returns (stream ImageResponse);
+  rpc ImageOfTheDay (ImageOfTheDayRequest) returns (ImageOfTheResponse);
+}
+
+message ImageRequest {
+  string id = 1;
+}
+
+message ImageResponse {
+  bytes data = 1;
+}
+
+message ImageOfTheDayRequest {
+  string day = 1;
+}
+
+message ImageOfTheResponse {
+  string url = 1;
+  string title = 2;
+  string description = 3;
+}
