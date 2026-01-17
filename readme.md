@@ -1,17 +1,18 @@
 ## API
 
+The hybrid REST/gRPC application
 
+### Running
+
+```bash
+dotnet run -p src/api.csproj
 ```
-dotnet sln add tests/tests.csproj
 
+### Testing
+
+```bash
+dotnet test
 ```
-dotnet add Api/Api.csproj package Data -s ../packages
-
-dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 9.0.4
-
-
-dotnet add package Moq.EntityFrameworkCore --version 9.0.0.5
-
 
 &nbsp;
 ============
