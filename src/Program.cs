@@ -7,7 +7,7 @@ var builder = WebApplication.CreateSlimBuilder(args);
 var config = builder.Configuration;
 
 // Add database context
-builder.Services.AddDb(builder=> {
+builder.Services.AddDb(builder => {
     builder.UseNpgsql(config.GetConnectionString("DefaultConnection")!);
 }); 
 

@@ -2,19 +2,12 @@ namespace UnitTests.Services;
 
 using Api.Services;
 using Grpc.Core;
-using Microsoft.Extensions.Logging;
-using Api;
 
-public class GreeterServiceTests
+public class GreeterServiceTests : UnitTestFor<GreeterService>
 {
-    private GreeterService _greeterService;
-    private Mock<ILogger<GreeterService>> _loggerMock;
-
-    [SetUp]
-    public void Setup()
+    protected override GreeterService CreateService()
     {
-        _loggerMock = new Mock<ILogger<GreeterService>>();
-        _greeterService = new GreeterService(_loggerMock.Object);
+        return new GreeterService(LoggerMock.Object);
     }
 
     [Test]
@@ -25,7 +18,7 @@ public class GreeterServiceTests
         var context = new Mock<ServerCallContext>().Object;
 
         // Act
-        var response = await _greeterService.SayHello(request, context);
+        var response = await SUT.SayHello(request, context);
 
         // Assert
         That(response.Message, Is.EqualTo("Hello TestUser"));
