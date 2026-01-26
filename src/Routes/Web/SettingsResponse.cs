@@ -1,3 +1,3 @@
 namespace Api.Routes.Web;
 
-public record SettingsResponse();
+public record SettingsResponse(string ApiUrl);
