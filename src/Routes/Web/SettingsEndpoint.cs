@@ -1,7 +1,7 @@
 using Data.Access;
 
 namespace Api.Routes.Web;
-public class SettingsEndpoint : Endpoint<GetRequest, SettingsResponse>
+public class SettingsEndpoint : IEndpoint<SettingsResponse>, IHttpGet
 {
     private readonly DataContext db;
 
@@ -10,12 +10,8 @@ public class SettingsEndpoint : Endpoint<GetRequest, SettingsResponse>
         this.db = db;
     }
 
-    public override async Task<SettingsResponse> HandleAsync(GetRequest request)
+    public async Task<SettingsResponse> Handler()
     {
-        return new SettingsResponse
-        {
-            SiteName = "Default Site",
-            AdminEmail = "  "
-        };
+        return new SettingsResponse();
     }
 }
