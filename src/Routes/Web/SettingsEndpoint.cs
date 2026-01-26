@@ -1,7 +1,8 @@
-using Data.Access;
-
 namespace Api.Routes.Web;
-public class SettingsEndpoint : IEndpoint<SettingsResponse>, IHttpGet
+/// <summary>
+/// Endpoint to get settings by key.
+/// </summary>
+public class SettingsEndpoint : IEndpoint<string, SettingsResponse>, IHttpGet
 {
     private readonly DataContext db;
 
@@ -10,7 +11,7 @@ public class SettingsEndpoint : IEndpoint<SettingsResponse>, IHttpGet
         this.db = db;
     }
 
-    public async Task<SettingsResponse> Handler()
+    public async Task<SettingsResponse> Handler([FromRoute] string key)
     {
         return new SettingsResponse();
     }

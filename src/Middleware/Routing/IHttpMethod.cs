@@ -1,4 +1,3 @@
-
 namespace Api.Middleware.Routing;
 
 /// <summary>
