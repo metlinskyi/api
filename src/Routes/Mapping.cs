@@ -1,5 +1,6 @@
 namespace Api.Routes;
 
+using Bot;
 using Web;
 
 /// <summary>
@@ -9,7 +10,7 @@ public static class Mapping
 {
     public static void MapEndpoints(this WebApplication app)
     {
-        app.MapGet("/", async ()  => "Hello, World!");
-        app.MapEndpoint<SettingsEndpoint>();
+        app.MapMediatorEndpoint<SettingsRequest>().AsPost();
+        app.MapMediatorEndpoint<ImageOfTheDayRequest>().AsGet();
     }
-}
+}    

@@ -7,12 +7,9 @@ public interface IEndpoint
 {
 }
 
-public interface IEndpoint<TResponse> : IEndpoint
+public interface IEndpoint<TMethod> : IEndpoint
+    where TMethod : IHttpMethod
 {
-    Task<TResponse> Handler();
+    public TMethod Method { get; }
 }
 
-public interface IEndpoint<TRequest,TResponse> : IEndpoint
-{
-    Task<TResponse> Handler(TRequest request);
-}

@@ -1,15 +1,16 @@
-using System.Reflection;
-
 namespace Api.Middleware.Routing;
 
 public static class Mapper
 {
-    public static void MapEndpoint<TEndpoint>(this WebApplication app)
-        where TEndpoint : IEndpoint
+    public static Endpoint MapServiceEndpoint<TService>(this WebApplication app, Func<TService, Delegate> delegateFactory)
+        where TService : notnull
     {
+        return new ServiceEndpoint<TService>(app, delegateFactory);
     }
 
-    public static void MapEndpoints(this WebApplication app, params Assembly[] assemblies)
+    public static Endpoint MapMediatorEndpoint<TRequest>(this WebApplication app)
+        where TRequest : IBaseRequest
     {
+       return new MediatorEndpoint<TRequest>(app);
     }
 }
