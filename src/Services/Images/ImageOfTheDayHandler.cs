@@ -1,4 +1,4 @@
-namespace Api.Routes.Bot;
+namespace Api.Services.Images;
 
 public class ImageOfTheDayHandler : IRequestHandler<ImageOfTheDayRequest, ImageOfTheDayResponse>
 {

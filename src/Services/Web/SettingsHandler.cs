@@ -3,7 +3,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Api.Routes.Web;
+namespace Api.Services.Web;
 /// <summary>
 /// Endpoint to get settings by key.
 /// Api/Web/Settings/{Key}/?Value={Value}

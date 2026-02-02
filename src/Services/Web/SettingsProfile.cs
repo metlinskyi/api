@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace Api.Routes.Web;
+namespace Api.Services.Web;
 
 public class SettingsProfile : Profile
 {

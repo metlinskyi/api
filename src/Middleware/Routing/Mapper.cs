@@ -13,4 +13,9 @@ public static class Mapper
     {
        return new MediatorEndpoint<TRequest>(app);
     }
+
+    public static void AddEndpointMapping(this IServiceCollection services, Action<EndpointMapper> configure)
+    {
+        
+    }
 }

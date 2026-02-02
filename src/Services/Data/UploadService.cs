@@ -1,8 +1,8 @@
 using Grpc.Core;
 
-namespace Api.Services;
+namespace Api.Services.Data;
 
-public class UploadService : Upload.UploadBase
+public class UploadService : Upload.UploadBase, IService
 {
     private readonly ILogger<UploadService> _logger;
     public UploadService(ILogger<UploadService> logger)
