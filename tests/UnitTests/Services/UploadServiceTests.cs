@@ -1,6 +1,7 @@
 namespace UnitTests.Services;
 
 using Api.Services;
+using Api.Services.Data;
 
 public class UploadServiceTests : UnitTestFor<UploadService>
 {

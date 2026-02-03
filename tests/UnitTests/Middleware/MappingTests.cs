@@ -1,49 +1,35 @@
 using System.Reflection;
-using Api.Routes.Web;
+using Api.Services.Images;
 using Data.Access;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UnitTests.Routes;
 
-public class MappingTests : UnitTestFor<SettingsEndpoint>
+public class EndpointMapperTests : UnitTestFor<EndpointMapper>
 {
-    protected override SettingsEndpoint CreateService()
+
+    public override void Setup()
     {
-        return new SettingsEndpoint(null, null);
+        base.Setup();
     }
 
     [Test]
     public async Task Handler_ReturnsSettingsResponse()
     {
-        // Arrange
+        var actual = SUT.BuildPattern(typeof(ImageOfTheDayRequest));
+        That(actual, Is.EqualTo("/api/images/imageoftheday/"));
+    }
 
-        var endpoint =  new Endpoint<SettingsEndpoint>(null, s=> s.Handle);
-
-        // Act
-        var t = SUT.GetType();
-        var r = t.Namespace.Replace("Api.Routes.","").Replace(".", "/") + "/" + t.Name.Replace("Endpoint", "");
-        var method = t.GetMethod("Handle");
-        var requestType = method.GetParameters().FirstOrDefault()?.ParameterType;
-
-        // Get all properties from the request type (IBaseRequest implementer)
-        var allProps = requestType?.GetProperties() ?? Array.Empty<PropertyInfo>();
-        
-        // Get properties with FromRoute attribute
-        var routeProps = new List<PropertyInfo>();
-        foreach(var p in allProps)
+    protected override EndpointMapper CreateService()
+    {
+        var _ = new EndpointMapper
         {
-            var attrs = p.GetCustomAttributes(typeof(FromRouteAttribute), false);
-            if(attrs != null && attrs.Length > 0)
-                routeProps.Add(p);
-        }
-        
-        // Get all property names and types
-        var allParameters = allProps.Select(p => new { p.Name, Type = p.PropertyType.Name }).ToList();
-        var routeParameters = routeProps.Select(p => new { p.Name, Type = p.PropertyType.Name }).ToList();
+           UrlPattern = "/api/{namespace}/{name}/"
+        };
+        _.AddPattern(type => type.Namespace?.Replace(".", "/"), "namespace", "Api/Services/(?<namespace>.*)");
+        _.AddPattern(type => type.Name, "name", "(?<name>.*)Service");
+        _.AddPattern(type => type.Name, "name", "(?<name>.*)Request");  
 
-        // Assert
-        Assert.That(allParameters, Is.Not.Empty, "Should have parameters in request");
-        Assert.That(routeParameters, Is.Not.Empty, "Should have route parameters");
-        Pass();
+        return _;
     }
 }

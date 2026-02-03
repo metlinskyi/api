@@ -1,7 +1,7 @@
 
 using System.Text.Json.Serialization;
-using Api.Routes.Bot;
-using Api.Routes.Web;
+using Api.Services.Images;
+using Api.Services.Web;
 
 [
     JsonSerializable(typeof(SettingsRequest)),

@@ -33,13 +33,13 @@ builder.Services.AddAutoMapper(_ =>
     _.AddMaps(typeof(Program).Assembly);    
 });
 
-// Configure endpoint mapping
+// Configure endpoint mapping`
 builder.Services.AddEndpointMapping(_ => 
 {
-    _.UrlPattern = "/api/{namespace}/{classname}/";
-    _.AddNamespacePattern("Api.Services.(?<namespace>.*)");
-    _.AddClassnamePattern("(?<classname>.*)Service");
-    _.AddClassnamePattern("(?<classname>.*)Handler");
+    _.UrlPattern = "/api/{namespace}/{name}/";
+    _.AddPattern(type => type.Namespace?.Replace(".", "/"), "namespace", "Api/Services/(?<namespace>.*)");
+    _.AddPattern(type => type.Name, "name", "(?<name>.*)Service");
+    _.AddPattern(type => type.Name, "name", "(?<name>.*)Handler");  
 });
 
 // Add authentication and authorization

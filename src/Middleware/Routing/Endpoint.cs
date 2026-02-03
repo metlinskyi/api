@@ -6,31 +6,28 @@ public abstract class Endpoint(WebApplication application, Type type)
     protected Type Type { get; private set; } = type;
     protected WebApplication Application { get; private set; } = application;
     protected ILogger Logger { get; } = application.Logger;
+
+    protected EndpointMapper Mapper { get; } = new EndpointMapper();
     
     public IEndpointConventionBuilder AsGet()
     {
-        return Application.MapGet(BuildPattern(Type), Delegate);
+        return Application.MapGet(Mapper.BuildPattern(Type), Delegate);
     }
 
     public IEndpointConventionBuilder AsPost()
     {
-        return Application.MapPost(BuildPattern(Type), Delegate);
+        return Application.MapPost(Mapper.BuildPattern(Type), Delegate);
     }
 
     public IEndpointConventionBuilder AsPut()
     {
-        return Application.MapPut(BuildPattern(Type), Delegate);
+        return Application.MapPut(Mapper.BuildPattern(Type), Delegate);
     }
 
     public IEndpointConventionBuilder AsDelete()
     {
-        return Application.MapDelete(BuildPattern(Type), Delegate);
+        return Application.MapDelete(Mapper.BuildPattern(Type), Delegate);
     }
 
-    protected string BuildPattern(Type type)
-    {
-        var pattern = $"{type.Namespace?.Replace(".", "/")}/{type.Name.Replace("Request", "")}".ToLower();
-        Logger.LogInformation("Mapping mediator endpoint: {Pattern}", pattern);
-        return pattern;
-    }
+
 }

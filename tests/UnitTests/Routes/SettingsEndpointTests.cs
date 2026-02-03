@@ -1,13 +1,14 @@
-﻿using Api.Routes.Web;
+﻿
+using Api.Services.Web;
 using Data.Access;
 
 namespace UnitTests.Routes;
 
-public class SettingsEndpointTests : UnitTestFor<SettingsEndpoint>
+public class SettingsEndpointTests : UnitTestFor<SettingsHandler>
 {
-    protected override SettingsEndpoint CreateService()
+    protected override SettingsHandler CreateService()
     {
-        return new SettingsEndpoint(null, null);
+        return new SettingsHandler(null, null);
     }
 
     [Test]

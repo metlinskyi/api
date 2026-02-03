@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <Protobuf Include="Services\Auth\greet.proto" GrpcServices="Server" />
-    <Protobuf Include="Services\Upload\upload.proto" GrpcServices="Server" />
+    <Protobuf Include="Services\Data\upload.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,20 +1,29 @@
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Expressions.Internal;
+using System.Text.RegularExpressions;
 
-public class   EndpointMapper
+public class EndpointMapper
 {
-    public string[] NamespacePattern { get; set; }
-    public string[] ClassnamePattern { get; set; }
-    public string UrlPattern { get; set; }
-
-
-    public void AddNamespacePattern(string pattern, string dotto =  "/")
+    protected List<EndpointPattern> Patterns { get; private set; } = new List<EndpointPattern>();
+    public string UrlPattern { get; set; } = "";
+    
+    public void AddPattern(Func<Type, string?> source, string tag, string pattern)
     {
-        // Implementation goes here
+        Patterns.Add(new EndpointPattern(source, tag, new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase)));
     }
 
-        public void AddClassnamePattern(string pattern)
+    public string BuildPattern(Type type)
     {
-        // Implementation goes here
+        var pattern = UrlPattern;
+
+        foreach (var endpointPattern in Patterns.Where(p => p.IsMatch(type)))
+        {
+            var value = endpointPattern.Format(type);
+            if (value != null)
+            {
+                var tag = string.Format("{{{0}}}", endpointPattern.Tag);
+                pattern = pattern.Replace(tag, value);
+            }
+        }
+
+        return pattern.ToLower();
     }
 }
