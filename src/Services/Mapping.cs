@@ -28,7 +28,8 @@ public static class Mapping
 
         ____.MapMediatorEndpoint<ImageOfTheDayRequest>()
             .AsGet()
-            .RequireAuthorization();
+            //.RequireAuthorization()
+            ;
 
 #endregion
 

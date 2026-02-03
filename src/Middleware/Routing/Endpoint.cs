@@ -7,7 +7,7 @@ public abstract class Endpoint(WebApplication application, Type type)
     protected WebApplication Application { get; private set; } = application;
     protected ILogger Logger { get; } = application.Logger;
 
-    protected EndpointMapper Mapper { get; } = new EndpointMapper();
+    protected EndpointMapper Mapper { get; } = application.Services.GetRequiredService<EndpointMapper>();
     
     public IEndpointConventionBuilder AsGet()
     {
@@ -28,6 +28,4 @@ public abstract class Endpoint(WebApplication application, Type type)
     {
         return Application.MapDelete(Mapper.BuildPattern(Type), Delegate);
     }
-
-
 }

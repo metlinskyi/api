@@ -16,6 +16,11 @@ public static class Mapper
 
     public static void AddEndpointMapping(this IServiceCollection services, Action<EndpointMapper> configure)
     {
-        
+        services.AddSingleton(sp =>
+        {
+            var mapper = new EndpointMapper();
+            configure(mapper);
+            return mapper;
+        });
     }
 }
