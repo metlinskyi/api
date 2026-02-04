@@ -1,5 +1,6 @@
 namespace Api.Services;
 
+using Bot;
 using Data;
 using Images;
 using Web;
@@ -17,6 +18,14 @@ public static class Mapping
 
 #endregion 
 
+#region Bot
+
+        ____.MapEndpoint<IBotService>(s => s.GetSettings)
+            .AsGet()
+            //.RequireAuthorization()
+            ;   
+#endregion
+
 #region Data
 
         ____.MapGrpcService<UploadService>()
@@ -26,8 +35,8 @@ public static class Mapping
 
 #region Images
 
-        ____.MapMediatorEndpoint<ImageOfTheDayRequest>()
-            .AsGet()
+        ____.MapEndpoint<ImageOfTheDayRequest>()
+            .AsPost()
             //.RequireAuthorization()
             ;
 
@@ -35,7 +44,7 @@ public static class Mapping
 
 #region Web
 
-        ____.MapMediatorEndpoint<SettingsRequest>()
+        ____.MapEndpoint<SettingsRequest>()
             .AsGet();
 
 #endregion   

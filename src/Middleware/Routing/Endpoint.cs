@@ -6,26 +6,30 @@ public abstract class Endpoint(WebApplication application, Type type)
     protected Type Type { get; private set; } = type;
     protected WebApplication Application { get; private set; } = application;
     protected ILogger Logger { get; } = application.Logger;
-
     protected EndpointMapper Mapper { get; } = application.Services.GetRequiredService<EndpointMapper>();
+    protected string Pattern  { get; set; } = string.Empty;
     
     public IEndpointConventionBuilder AsGet()
     {
-        return Application.MapGet(Mapper.BuildPattern(Type), Delegate);
+        Logger.LogInformation("GET: {Pattern}", Pattern);
+        return Application.MapGet(Pattern, Delegate);
     }
 
     public IEndpointConventionBuilder AsPost()
     {
-        return Application.MapPost(Mapper.BuildPattern(Type), Delegate);
+        Logger.LogInformation("POST: {Pattern}", Pattern);
+        return Application.MapPost(Pattern, Delegate);
     }
 
     public IEndpointConventionBuilder AsPut()
     {
-        return Application.MapPut(Mapper.BuildPattern(Type), Delegate);
+        Logger.LogInformation("PUT: {Pattern}", Pattern);      
+        return Application.MapPut(Pattern, Delegate);
     }
 
     public IEndpointConventionBuilder AsDelete()
     {
-        return Application.MapDelete(Mapper.BuildPattern(Type), Delegate);
+        Logger.LogInformation("DELETE: {Pattern}", Pattern);
+        return Application.MapDelete(Pattern, Delegate);
     }
 }

@@ -4,7 +4,9 @@ public class MediatorEndpoint<TRequest> : Endpoint
     where TRequest : IBaseRequest
 {
     public MediatorEndpoint(WebApplication app) : base(app, typeof(TRequest))
-    {        
+    {      
+        Pattern = Mapper.BuildPattern(typeof(TRequest)).Replace("{method}", string.Empty);
+
         Delegate = async (context) =>
         {
             Logger.LogInformation("Handling mediator request: {RequestType}", Type.Name);

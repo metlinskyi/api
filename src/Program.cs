@@ -1,4 +1,5 @@
 using Api.Services;
+using Api.Services.Bot;
 using Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,22 +25,24 @@ builder.Services.AddDb(_ =>
 // Add MediatR
 builder.Services.AddMediatR(_ => 
 {
+    _.LicenseKey = config["LuckyPennySoftware:LicenseKey"];
     _.RegisterServicesFromAssemblyContaining<Program>();
 });
 
 // Map AutoMapper profiles
 builder.Services.AddAutoMapper(_ => 
 {
+    _.LicenseKey = config["LuckyPennySoftware:LicenseKey"];
     _.AddMaps(typeof(Program).Assembly);    
 });
 
 // Configure endpoint mapping`
 builder.Services.AddEndpointMapping(_ => 
 {
-    _.UrlPattern = "/api/{namespace}/{name}/";
+    _.UrlPattern = "/api/{namespace}/{type}/{method}";
     _.AddPattern(type => type.Namespace?.Replace(".", "/"), "namespace", "Api/Services/(?<namespace>.*)");
-    _.AddPattern(type => type.Name, "name", "(?<name>.*)Service");
-    _.AddPattern(type => type.Name, "name", "(?<name>.*)Handler");  
+    _.AddPattern(type => type.Name, "type", "I(?<type>.*)Service");
+    _.AddPattern(type => type.Name, "type", "(?<type>.*)Request");  
 });
 
 // Add authentication and authorization
@@ -50,6 +53,8 @@ builder.Services.AddAuthorization();
 builder.Services.AddGrpc();
 if (builder.Environment.IsDevelopment())
     builder.Services.AddGrpcReflection();
+
+builder.Services.AddTransient<IBotService, BotService>();
 
 #endregion
 

@@ -4,7 +4,13 @@ public class EndpointMapper
 {
     protected List<EndpointPattern> Patterns { get; private set; } = new List<EndpointPattern>();
     public string UrlPattern { get; set; } = "";
-    
+    private ILogger<EndpointMapper> Logger { get; }
+
+    public EndpointMapper(ILogger<EndpointMapper> logger)
+    {
+        Logger = logger;    
+    }
+
     public void AddPattern(Func<Type, string?> source, string tag, string pattern)
     {
         Patterns.Add(new EndpointPattern(source, tag, new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase)));

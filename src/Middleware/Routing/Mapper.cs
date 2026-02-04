@@ -1,14 +1,16 @@
+using System.Linq.Expressions;
+
 namespace Api.Middleware.Routing;
 
 public static class Mapper
 {
-    public static Endpoint MapServiceEndpoint<TService>(this WebApplication app, Func<TService, Delegate> delegateFactory)
+    public static Endpoint MapEndpoint<TService>(this WebApplication app, Expression<Func<TService, Delegate>> delegateFactory)
         where TService : notnull
     {
         return new ServiceEndpoint<TService>(app, delegateFactory);
     }
 
-    public static Endpoint MapMediatorEndpoint<TRequest>(this WebApplication app)
+    public static Endpoint MapEndpoint<TRequest>(this WebApplication app)
         where TRequest : IBaseRequest
     {
        return new MediatorEndpoint<TRequest>(app);
@@ -18,7 +20,7 @@ public static class Mapper
     {
         services.AddSingleton(sp =>
         {
-            var mapper = new EndpointMapper();
+            var mapper = new EndpointMapper(sp.GetRequiredService<ILogger<EndpointMapper>>());
             configure(mapper);
             return mapper;
         });
