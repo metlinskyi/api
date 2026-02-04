@@ -428,3 +428,5 @@ FodyWeavers.xsd
 *.msp
 
 .sh
+
+appsettings.Production.json
