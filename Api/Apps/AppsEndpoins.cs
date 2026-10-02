@@ -6,10 +6,10 @@ namespace Self.Api.Apps;
 /// </summary>
 internal static class AppsEndpoints
 {
-    public static void MapAppsEndpoints(this WebApplication webApp, RouteGroupBuilder root)
+    public static void MapAppsEndpoints(this WebApplication webApp, RouteGroupBuilder root, int version)
     {
         var apps = root.MapGroup("/apps");
-
+    
         Todo[] sampleTodos =
         [
             new(1, "Walk the dog"),

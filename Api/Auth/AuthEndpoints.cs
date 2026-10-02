@@ -6,7 +6,7 @@ namespace Self.Api.Auth;
 /// </summary>
 internal static class AuthEndpoints
 {
-    public static void MapAuthEndpoints(this WebApplication webApp, RouteGroupBuilder root)
+    public static void MapAuthEndpoints(this WebApplication webApp, RouteGroupBuilder root, int version)
     {
         var auth = root.MapGroup("/auth");
 
