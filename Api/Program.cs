@@ -1,11 +1,11 @@
-using Api.Application;
+using Api.Apps;
 using Api.Auth;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
-    options.SerializerOptions.TypeInfoResolverChain.Insert(0, ApplicationSerializerContext.Default);
+    options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppsSerializerContext.Default);
     options.SerializerOptions.TypeInfoResolverChain.Insert(0, AuthSerializerContext.Default);
 });
 
@@ -20,7 +20,7 @@ if (app.Environment.IsDevelopment())
 }
 
 var root = app.MapGroup("/api/v1");
-app.MapApplicationEndpoints(root);
+app.MapAppsEndpoints(root);
 app.MapAuthEndpoints(root);
 
 app.Run();
