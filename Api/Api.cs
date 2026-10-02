@@ -1,23 +1,22 @@
-using Api.Apps;
-using Api.Auth;
+using Self.Api.Apps;
+using Self.Api.Auth;
+
 
 var builder = WebApplication.CreateSlimBuilder(args);
+var services = builder.Services;
 
-builder.Services.ConfigureHttpJsonOptions(options =>
+services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppsSerializerContext.Default);
     options.SerializerOptions.TypeInfoResolverChain.Insert(0, AuthSerializerContext.Default);
 });
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+services.AddOpenApi();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+app.MapOpenApi();
+
 
 var root = app.MapGroup("/api/v1");
 app.MapAppsEndpoints(root);

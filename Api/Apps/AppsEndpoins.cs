@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace Api.Apps;
+namespace Self.Api.Apps;
 /// <summary>
 /// Endpoints for applications
 /// </summary>

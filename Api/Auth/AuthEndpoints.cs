@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace Api.Auth;
+namespace Self.Api.Auth;
 /// <summary>
 /// Endpoints for authentication
 /// </summary>
