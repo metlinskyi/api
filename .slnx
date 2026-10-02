@@ -1,6 +1,0 @@
-<Solution>
-  <Folder Name="/src/">
-    <Project Path="src/Api.csproj" />
-  </Folder>
-  <Project Path="tests/Api.UnitTests.csproj" />
-</Solution>

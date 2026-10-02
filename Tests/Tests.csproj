@@ -24,15 +24,15 @@
   </ItemGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath Condition="'$(OutputPath)'=='' ">..\..\bin\Debug\</OutputPath>
+    <OutputPath Condition="'$(OutputPath)'=='' ">..\bin\Debug\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath Condition="'$(OutputPath)'=='' ">..\..\bin\Release\</OutputPath>
+    <OutputPath Condition="'$(OutputPath)'=='' ">..\bin\Release\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Api.csproj" />
+    <ProjectReference Include="..\Api\Api.csproj" />
   </ItemGroup>
 
 </Project>
