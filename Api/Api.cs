@@ -41,7 +41,7 @@ var app = builder.Build();
 app.UseAuth();
 app.UseWebAccess();
 
-var root = app.MapGroup($"/api/v{version}");
+var root = app.MapGroup($"/v{version}");
 app.MapAppsEndpoints(root, version);
 app.MapAuthEndpoints(root, version);
 
