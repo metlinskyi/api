@@ -1,5 +1,6 @@
 using Self.Api.Apps;
 using Self.Api.Auth;
+using Self.Api.Events;
 using Self.Api.Middleware.Db;
 using Self.Api.Middleware.Events;
 using Self.Api.Middleware.Web;
@@ -44,5 +45,6 @@ app.UseWebAccess();
 var root = app.MapGroup($"/v{version}");
 app.MapAppsEndpoints(root, version);
 app.MapAuthEndpoints(root, version);
+app.MapEventBusEndpoints(root, version);
 
 app.Run();
