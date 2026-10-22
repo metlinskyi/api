@@ -1,11 +1,11 @@
-using Microsoft.EntityFrameworkCore;
-using Self.Data.Access;
-
 namespace Self.Api.Middleware.Caching;
 
 internal static class CachingConfiguration
 {
-    public static void ConfigureCachingOptions(this IServiceCollection services, Action<CachingOptions> options)
+    public static void ConfigureCachingOptions<T>(this IServiceCollection services, Action<CachingOptions<T>> options)
+        where T : new()
     {
+        var _ = new CachingOptions<T>();
+        options.Invoke(_);
     }
 }

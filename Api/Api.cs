@@ -28,16 +28,16 @@ services.ConfigureDbAccessOptions(options =>
     options.ReplicaDbConnection = builder.Configuration.GetConnectionString("ReplicaDbConnection");
 });
 
-services.ConfigureEventBusOptions(options =>
+services.ConfigureEventBusOptions<RabbitMQConnection>(options =>
 {
-    // Configure event bus options here
+    options.Settings = builder.Configuration.GetValue<RabbitMQConnection>("Events:RabbitMQ")!;
 });
 
-services.ConfigureCachingOptions(options =>
+services.ConfigureCachingOptions<RadisConnection>(options =>
 {
-    // Configure caching options here
+    options.Settings = builder.Configuration.GetValue<RadisConnection>("Events:RabbitMQ")!;
 });
-
+  
 services.ConfigureWebAccessOptions(options =>
 {
     options.EnabledOpenApi = true;

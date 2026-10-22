@@ -2,9 +2,10 @@ namespace Self.Api.Middleware.Events;
 
 internal static class EventBusConfiguration
 {
-    private static EventBusOptions Options = new();
-    public static void ConfigureEventBusOptions(this IServiceCollection services, Action<EventBusOptions> options)
+    public static void ConfigureEventBusOptions<T>(this IServiceCollection services, Action<EventBusOptions<T>> options) 
+        where T : new()
     {
-        options.Invoke(Options);
+        var _ = new EventBusOptions<T>();
+        options.Invoke(_);
     }
 }
