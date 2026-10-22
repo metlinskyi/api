@@ -13,6 +13,7 @@ services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppsSerializerContext.Default);
     options.SerializerOptions.TypeInfoResolverChain.Insert(0, AuthSerializerContext.Default);
+    options.SerializerOptions.TypeInfoResolverChain.Insert(0, EventBusSerializerContext.Default);
 });
 
 services.ConfigureAuthOptions(options =>

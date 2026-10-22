@@ -12,5 +12,7 @@ internal static class EventBusEndpoints
 
         auth.MapPut("/", () => {})
             .WithName("Authenticate");
+
+        auth.MapPost("/login", () => {});
     }
 }
