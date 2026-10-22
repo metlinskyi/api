@@ -1,6 +1,7 @@
 using Self.Api.Apps;
 using Self.Api.Auth;
 using Self.Api.Events;
+using Self.Api.Middleware.Caching;
 using Self.Api.Middleware.Db;
 using Self.Api.Middleware.Events;
 using Self.Api.Middleware.Web;
@@ -30,6 +31,11 @@ services.ConfigureDbAccessOptions(options =>
 services.ConfigureEventBusOptions(options =>
 {
     // Configure event bus options here
+});
+
+services.ConfigureCachingOptions(options =>
+{
+    // Configure caching options here
 });
 
 services.ConfigureWebAccessOptions(options =>
