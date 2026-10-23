@@ -1,20 +1,27 @@
-using Microsoft.EntityFrameworkCore;
-using Self.Data.Access;
-
 namespace Self.Api.Middleware.Db;
-
+/// <summary>
+/// 
+/// </summary>
 internal static class DbAccessConfiguration
 {
-    private static DbAccessOptions Options = new DbAccessOptions();
-    public static void ConfigureDbAccessOptions(this IServiceCollection services, Action<DbAccessOptions> options)
+    private static DbAccessOptions Options = new();
+    public static void ConfigureDbAccessOptions<TBuilder>(
+        this IServiceCollection services, 
+        Action<DbAccessOptions> settings)
+        where TBuilder : DbBuilder, new()
     {
-        options.Invoke(Options);
+        settings.Invoke(Options);
 
-       services.AddDbContext<DataContext>(options => 
-       {
-            options.UseNpgsql(Options.PrimaryDbConnection, npgsqlOptions => {
-                npgsqlOptions.EnableRetryOnFailure();
-            });
+        TBuilder builder = new();
+
+        services.AddDbContext<DbContextPrimary>(options => 
+        {
+            builder.Primary(options, Options.PrimaryDbConnection);
+        }); 
+
+        services.AddDbContext<DbContextReplica>(options => 
+        {
+            builder.Replica(options, Options.ReplicaDbConnection);
         }); 
     }
 }
